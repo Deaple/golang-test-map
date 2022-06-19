@@ -19,10 +19,16 @@ func (d Dictionary) Search(word string) (string,error){
 //maps are pointer to runtime.hmap
 //so we don't need to pass and pointer here
 func (d Dictionary) Add(word, definition string) error{
-	if d[word] != ""{
+	_, err := d.Search(word)
+
+	switch err {
+	case ErrorNotFound:
+		d[word] = definition
+	case nil:
 		return ErrorWordExists
-	} 
+	default:
+		return err
+	}
 	
-	d[word] = definition
 	return nil
 }
