@@ -17,8 +17,9 @@ func (e DictionaryErr) Error() string {
 	return string(e)
 }
 
-// var ErrorNotFound = errors.New("No definition found for the word.")
-// var ErrorWordExists = errors.New("This word already exists in dictionary.")
+func (d Dictionary) Update(word, newDefinition string){
+	d[word] = newDefinition
+}
 
 func (d Dictionary) Search(word string) (string,error){
 	if d[word] == "" {

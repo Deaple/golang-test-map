@@ -5,12 +5,12 @@ import "testing"
 
 func TestSearch(t *testing.T){
 	
-	phrase := "this is just a test"
-	dictionary := Dictionary{"test": phrase}
+	definition := "this is just a test"
+	dictionary := Dictionary{"test": definition}
 
 	t.Run("known word",func(t *testing.T){
 		got,_ := dictionary.Search("test")
-		want := phrase
+		want := definition
 
 		assertStrings(t, got, want)
 	})
@@ -51,7 +51,17 @@ func TestAdd(t *testing.T){
 		assertErrors(t, err, ErrorWordExists)
 		assertDefinition(t, dictionary, word, definition)
 	})
+}
 
+func TestUpdate(t *testing.T){
+	word := "test"
+	definition := "new text"
+	dictionary := Dictionary{word: definition}
+	newDefinition := "updated definition"
+
+	dictionary.Update(word, newDefinition)
+
+	assertDefinition(t, dictionary, word, newDefinition)
 }
 
 func assertErrors(t testing.TB, got, err error){
